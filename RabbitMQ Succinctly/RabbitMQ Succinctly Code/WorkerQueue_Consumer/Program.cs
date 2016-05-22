@@ -18,7 +18,7 @@ namespace RabbitMQ.Examples
 
         public static void Receive()
         {
-            _factory = new ConnectionFactory { HostName = "localhost", UserName = "guest", Password = "guest" };
+            _factory = new ConnectionFactory { HostName = "localhost", UserName = "Vovan", Password = "peacemaker" };
             using (_connection = _factory.CreateConnection())
             {
                 using (var channel = _connection.CreateModel())

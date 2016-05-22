@@ -30,7 +30,7 @@ namespace RabbitMQ.Examples
 
         private static void SetupClient()
         {
-            var factory = new ConnectionFactory { HostName = "localhost", UserName = "guest", Password = "guest" };
+            var factory = new ConnectionFactory { HostName = "localhost", UserName = "Vovan", Password = "peacemaker" };
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
             _replyQueueName = _channel.QueueDeclare();

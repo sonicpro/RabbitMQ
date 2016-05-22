@@ -13,11 +13,12 @@ namespace RabbitMQ.Examples
 
         static void Main()
         {
-            _factory = new ConnectionFactory { HostName = "localhost", UserName = "guest", Password = "guest" };
+            _factory = new ConnectionFactory { HostName = "localhost", UserName = "Vovan", Password = "peacemaker" };
             using (_connection = _factory.CreateConnection())
             {
                 using (var channel = _connection.CreateModel())
-                {                    
+                {
+                    _consumer = new QueueingBasicConsumer(channel);
                     var queueName = DeclareAndBindQueueToExchange(channel);
                     channel.BasicConsume(queueName, true, _consumer);
                   
@@ -37,7 +38,7 @@ namespace RabbitMQ.Examples
             channel.ExchangeDeclare(ExchangeName, "fanout");
             var queueName = channel.QueueDeclare().QueueName;
             channel.QueueBind(queueName, ExchangeName, "");
-            _consumer = new QueueingBasicConsumer(channel);
+            //_consumer = new QueueingBasicConsumer(channel);
             return queueName;
         }
     }

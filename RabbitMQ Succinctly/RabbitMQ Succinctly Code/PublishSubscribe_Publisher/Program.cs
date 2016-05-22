@@ -40,7 +40,7 @@ namespace RabbitMQ.Examples
 
         private static void CreateConnection()
         {
-            _factory = new ConnectionFactory { HostName = "localhost", UserName = "guest", Password = "guest" };
+            _factory = new ConnectionFactory { HostName = "localhost", UserName = "Vovan", Password = "peacemaker" };
             _connection = _factory.CreateConnection();
             _model = _connection.CreateModel();
             _model.ExchangeDeclare(ExchangeName, "fanout");

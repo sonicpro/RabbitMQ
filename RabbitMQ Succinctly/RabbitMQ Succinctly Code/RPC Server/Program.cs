@@ -53,6 +53,8 @@ namespace RabbitMQ.Examples
                     var responseBytes = Encoding.UTF8.GetBytes(response);
                     _channel.BasicPublish("", props.ReplyTo, replyProps, responseBytes);
                 }
+                // Not until the reply is sent do we acknowledge the message.
+                // This effectively make communication synchronous.
                 _channel.BasicAck(ea.DeliveryTag, false);
             }
 
@@ -71,12 +73,14 @@ namespace RabbitMQ.Examples
 
         private static void CreateConnection()
         {
-            _factory = new ConnectionFactory { HostName = "localhost", UserName = "guest", Password = "guest" };
+            _factory = new ConnectionFactory { HostName = "localhost", UserName = "Vovan", Password = "peacemaker" };
             _connection = _factory.CreateConnection();            
             _channel = _connection.CreateModel();               
             _channel.QueueDeclare("rpc_queue", false, false, false, null);
+            // Receive messages one-by-one; "prefetchCount = 1".
             _channel.BasicQos(0, 1, false);
             _consumer = new QueueingBasicConsumer(_channel);
+            // Consume with acknowledgement; "noAck = false".
             _channel.BasicConsume("rpc_queue", false, _consumer);
             _rnd = new Random();
         }
